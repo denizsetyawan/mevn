@@ -42,3 +42,23 @@ export const getAll = async (req, res) => {
     }
 
 }
+
+// send a POST request
+export const postAll = async (req, res) => {
+    try {
+        const response = await axios({
+            method: 'post',
+            url: 'http://localhost:3000/product',
+            data: req.body
+        });
+//        console.log(response.data);
+        res.status(200).json({
+            message: 'Data berhasil ditambahkan!'
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+}
