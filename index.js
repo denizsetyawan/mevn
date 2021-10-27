@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import route from "./routes/index.js";
+import axiosRoute from "./routes/axios.js";
 import cors from "cors";
 
 const app = express();
@@ -9,6 +10,11 @@ mongoose.connect("mongodb://localhost:27017/restful_db", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
+//setup method override
+//app.use(methodOverride('_method'));
+//const __dirname = path.resolve();
+//app.use(express.static(path.join(__dirname + 'views')));
 
 const db = mongoose.connection;
 db.on('error', (error) => {
@@ -22,6 +28,7 @@ db.once('open', () => {
 app.use(cors());
 app.use(express.json());
 app.use('/product', route); //otomatis di depan /product
+app.use('/axios', axiosRoute); //otomatis di depan /product
 
 app.listen('3000', () => {
     console.log('Server running at port: 3000')
