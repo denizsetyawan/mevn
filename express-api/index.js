@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import route from "./routes/index.js";
-import axiosRoute from "./routes/axios.js";
 import cors from "cors";
 
 const app = express();
@@ -28,8 +27,7 @@ db.once('open', () => {
 app.use(cors());
 app.use(express.json());
 app.use('/product', route); //otomatis di depan /product
-app.use('/axios', axiosRoute); //otomatis di depan /product
 
-app.listen('3000', () => {
-    console.log('Server running at port: 3000')
+app.listen('5000', () => {
+    console.log('Server running at port: 5000')
 });
