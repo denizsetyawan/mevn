@@ -5,6 +5,21 @@ POST http://localhost:5000/product
 Content-Type: application/json
 
 {
-    "title": "Product 2",
-    "price": 2000
+    "title": "Product 4",
+    "price": 4000
 }
+
+###
+GET http://localhost:5000/product/619ef1426ebbc6ee7d35f6be
+
+###
+PATCH http://localhost:5000/product/619ef1426ebbc6ee7d35f6be
+Content-Type: application/json
+
+{
+    "title": "Product 4 Updated",
+    "price": 40004
+}
+
+###
+DELETE http://localhost:5000/product/619eed685e343a9575cf52e2
