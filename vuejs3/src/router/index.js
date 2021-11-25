@@ -3,18 +3,18 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
     {
         path: '/',
-        name: 'transaction.index',
-        component: () => import("../views/transaction/Index.vue")
+        name: 'product.index',
+        component: () => import("../views/product/Index.vue")
     },
     {
         path: '/create',
-        name: 'transaction.create',
-        component: () => import("../views/transaction/Create.vue")
+        name: 'product.create',
+        component: () => import("../views/product/Create.vue")
     },
     {
         path: '/edit/:id',
-        name: 'transaction.edit',
-        component: () => import("../views/transaction/Edit.vue")
+        name: 'product.edit',
+        component: () => import("../views/product/Edit.vue")
     }
 ];
 
