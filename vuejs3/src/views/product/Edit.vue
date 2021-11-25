@@ -2,44 +2,27 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-8">
-                <router-link :to="{ name:'transaction.index' }" class="btn btn-primary btn-sm rounded shadow mb-3">Back
+                <router-link :to="{ name:'product.index' }" class="btn btn-primary btn-sm rounded shadow mb-3">Back
                 </router-link>
 
                 <div class="card rounded shadow">
                     <div class="card-header">
-                        Edit Transaction
+                        Edit Product
                     </div>
                     <div class="card-body">
                         <form @submit.prevent="update()">
                             <div class="mb-3">
                                 <label class="form-label">Title</label>
-                                <input type="text" class="form-control" v-model="transaction.title">
+                                <input type="text" class="form-control" v-model="product.title">
                                 <div class="text-danger">
-                                    {{ validation.title }}
+                                    
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Amount</label>
-                                <input type="number" class="form-control" v-model="transaction.amount">
+                                <label class="form-label">Price</label>
+                                <input type="number" class="form-control" v-model="product.price">
                                 <div class="text-danger">
-                                    {{ validation.amount }}
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Time</label>
-                                <input type="text" class="form-control" placeholder="yyyy-mm-dd hh:mm:ss" v-model="transaction.time">
-                                <div class="text-danger">
-                                    {{ validation.time }}
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Type</label>
-                                <select class="form-select" id="" v-model="transaction.type">
-                                    <option value="expense">Expense</option>
-                                    <option value="revenue">Revenue</option>
-                                </select>
-                                <div class="text-danger">
-                                    {{ validation.type }}
+                                    
                                 </div>
                             </div>
                             <button class="btn btn-outline-primary">Submit</button>
@@ -58,11 +41,9 @@ import axios from 'axios'
     export default {
         setup() {
             //data binding
-            let transaction = reactive({
+            let product = reactive({
                 title: '',
-                amount: '',
-                time: '',
-                type: ''
+                price: ''
             })
 
             const validation = ref([])
@@ -71,25 +52,23 @@ import axios from 'axios'
             const route = useRoute();
 
             onMounted(() => {
-                axios.get(`http://127.0.0.1:8000/api/transaction/${route.params.id}`)
+                axios.get(`http://localhost:5000/product/${route.params.id}`)
                 .then((result) => {
-                    transaction.title = result.data.data.title
-                    transaction.amount = result.data.data.amount
-                    transaction.time = result.data.data.time
-                    transaction.type = result.data.data.type
+                    product.title = result.data.data.title
+                    product.price = result.data.data.price
                 }).catch((err) => {
                     console.log(err.response.data)
                 });
             });
 
             function update(){
-                axios.put(
-                    `http://127.0.0.1:8000/api/transaction/${route.params.id}`,
-                    transaction
+                axios.patch(
+                    `http://localhost:5000/product/${route.params.id}`,
+                    product
                 )
                 .then(() => {
                     router.push({
-                        name: 'transaction.index'
+                        name: 'product.index'
                     })
                 }).catch((err) => {
                     validation.value = err.response.data
@@ -97,7 +76,7 @@ import axios from 'axios'
             }
 
             return {
-                transaction, validation, router, update
+                product, validation, router, update
             }
 
         }
