@@ -10,19 +10,24 @@
                         Create Product
                     </div>
                     <div class="card-body">
+
+                        <div class="text-danger text-center mb-2" role="alert">
+                            {{ validation.message }}
+                        </div>
+
                         <form @submit.prevent="store()">
                             <div class="mb-3">
                                 <label class="form-label">Title</label>
                                 <input type="text" class="form-control" v-model="product.title">
                                 <div v-if="validation.title" class="text-danger">
-                                    
+
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Price</label>
                                 <input type="number" class="form-control" v-model="product.price">
                                 <div v-if="validation.amount" class="text-danger">
-                                    
+
                                 </div>
                             </div>
                             <button class="btn btn-outline-primary">Submit</button>
@@ -65,7 +70,7 @@
                             name: 'product.index'
                         })
                     }).catch((err) => {
-                        console.log(validation.value = err.response.data.message)
+                        console.log(validation.value = err.response.data)
                     });
             }
 
