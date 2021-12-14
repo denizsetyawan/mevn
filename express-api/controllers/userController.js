@@ -45,7 +45,8 @@ export const loginUser = async (req, res) => {
         
     } catch (err) {
         res.status(400).json({
-            err: "Email yang anda masukkan tidak terdaftar"
+            err: err,
+            message: "Email atau password yang anda masukkan salah"
         });
     }
 };
