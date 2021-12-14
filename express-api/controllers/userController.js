@@ -37,19 +37,15 @@ export const loginUser = async (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         const user = await User.findByCredentials(email, password);
-        if (!user) {
-            return res.status(401).json({
-                error: "Login failed! Check authentication credentials"
-            });
-        }
         const token = await user.generateAuthToken();
         res.status(201).json({
             user,
             token
         });
+        
     } catch (err) {
         res.status(400).json({
-            err: err
+            err: "Email yang anda masukkan tidak terdaftar"
         });
     }
 };

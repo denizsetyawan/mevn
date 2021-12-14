@@ -16,3 +16,8 @@ export const validatorRegister = [
     check('email', 'email tidak boleh kosong').notEmpty().matches(/.+\@.+\..+/).withMessage('masukkan email yang valid'),
     check('password', 'password tidak boleh kosong').notEmpty().isLength({ min: 6 }).withMessage('password minimal 6 karakter')
 ]
+
+export const validatorLogin = [
+    check('email', 'email tidak boleh kosong').notEmpty().matches(/.+\@.+\..+/).withMessage('masukkan email yang valid'),
+    check('password', 'password tidak boleh kosong').notEmpty().isLength({ min: 6 }).withMessage('password minimal 6 karakter')
+]
