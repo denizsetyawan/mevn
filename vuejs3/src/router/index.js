@@ -29,7 +29,8 @@ const routes = [
       {
         path: "/db",
         name: "db",
-        component: () => import("../views/auth/db.vue")
+        component: () => import("../views/auth/db.vue"),
+        meta: {requiresAuth: true}
       }
 ];
 

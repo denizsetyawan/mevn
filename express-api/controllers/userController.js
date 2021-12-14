@@ -51,7 +51,12 @@ export const loginUser = async (req, res) => {
     }
 };
 
+export const getUserDetails = async (req, res) => {
+    await res.json(req.userData);
+  };
+
 export default {
     registerNewUser,
-    loginUser
+    loginUser,
+    getUserDetails
 };
