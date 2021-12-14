@@ -1,5 +1,5 @@
 {
-    "name": "RestfulAPI-NodeJS",
+    "name": "express-api",
     "version": "1.0.0",
     "description": "",
     "type": "module",
@@ -12,9 +12,14 @@
     "license": "ISC",
     "dependencies": {
         "axios": "^0.24.0",
+        "bcrypt": "^5.0.1",
+        "body-parser": "^1.19.1",
         "cors": "^2.8.5",
         "express": "^4.17.1",
-        "mongoose": "^6.0.12"
+        "express-validator": "^6.14.0",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^6.0.12",
+        "morgan": "^1.10.0"
     },
     "devDependencies": {
         "nodemon": "^2.0.14"

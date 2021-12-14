@@ -1,7 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import route from "./routes/index.js";
+import userRoutes from "./routes/user.js";
 import cors from "cors";
+import morgan from "morgan";
+import bodyParser from "body-parser";
 
 const app = express();
 
@@ -9,11 +12,6 @@ mongoose.connect("mongodb://localhost:27017/restful_db", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
-
-//setup method override
-//app.use(methodOverride('_method'));
-//const __dirname = path.resolve();
-//app.use(express.static(path.join(__dirname + 'views')));
 
 const db = mongoose.connection;
 db.on('error', (error) => {
@@ -26,7 +24,13 @@ db.once('open', () => {
 //middleware - agar bisa menerima post dr data dlm format json
 app.use(cors());
 app.use(express.json());
+//configure body parser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(morgan("dev")); // configire morgan
+
 app.use('/product', route); //otomatis di depan /product
+app.use("/user", userRoutes);
 
 app.listen('5000', () => {
     console.log('Server running at port: 5000')
