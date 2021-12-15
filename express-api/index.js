@@ -5,6 +5,7 @@ import userRoutes from "./routes/user.js";
 import cors from "cors";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+import multer from "multer";
 
 const app = express();
 
@@ -31,6 +32,16 @@ app.use(morgan("dev")); // configire morgan
 
 app.use('/product', route); //otomatis di depan /product
 app.use("/user", userRoutes);
+
+//file upload
+const upload = multer({
+    dest: './uploads'
+})
+
+app.post('/upload', upload.single("foto"), (req,res) => {
+    res.json({ foto: req.file })
+    console.log(String(req.file.path))
+})
 
 app.listen('5000', () => {
     console.log('Server running at port: 5000')

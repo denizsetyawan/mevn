@@ -29,8 +29,14 @@ export const getProductById = async (req, res) => {
 }
 
 //untuk menyimpan product
-export const saveProduct = async (req, res) => {
-    const product = new Product(req.body);
+export const saveProduct = async (req, res, file) => {
+    console.log(req.file)
+    const product = new Product({
+        title: req.body.title,
+        price: req.body.price,
+        pict: req.file.path
+    });
+    
     try {
         const savedProduct = await product.save();
         res.status(201).json({
