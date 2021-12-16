@@ -71,8 +71,12 @@
                         // console.log(res);
                     })
                     .catch(err => {
-                        console.log(err);
-                        alert('Pastikan semua terisi')
+                        // console.log(err.response.status);
+                        if (err.response.status === 500) {
+                            alert('File yang anda masukkan bukan image')
+                        } else {
+                            alert('Pastikan semua terisi')
+                        }
                     });
             }
         }
