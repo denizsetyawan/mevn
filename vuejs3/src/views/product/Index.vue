@@ -20,6 +20,9 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(product, index) in products.data" :key="index">
+                                    <td>
+                                        <img :src="path + product.pict" :alt="product.pict" width="300">
+                                    </td>
                                     <td>{{ product.title }}</td>
                                     <td>{{ product.price }}</td>
                                     <td>
@@ -51,12 +54,14 @@
         //reactive state
         setup() {
             let products = ref([]);
+            let path = 'http://localhost:5000/'
 
             onMounted(() => {
                 //get data from api endpoint
                 axios.get('http://localhost:5000/product')
                     .then((result) => {
                         products.value = result.data
+                        console.log(products.value = result.data)
                     }).catch((err) => {
                         console.log(err.response);
                     });
@@ -74,7 +79,7 @@
             }
 
             return {
-                products, destroy
+                products, destroy, path
             }
         }
     }

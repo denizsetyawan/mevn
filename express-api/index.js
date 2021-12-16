@@ -32,6 +32,7 @@ app.use(morgan("dev")); // configire morgan
 
 app.use('/product', route); //otomatis di depan /product
 app.use("/user", userRoutes);
+app.use('/uploads', express.static('uploads'));
 
 //file upload
 // const upload = multer({

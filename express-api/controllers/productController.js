@@ -33,9 +33,10 @@ export const saveProduct = async (req, res, file) => {
     const product = new Product({
         title: req.body.title,
         price: req.body.price,
+        // pict: 'http://localhost:5000/'+req.file.path
         pict: req.file.path
     });
-    // console.log(product)
+    // console.log(product.pict)
     
     try {
         const savedProduct = await product.save();
