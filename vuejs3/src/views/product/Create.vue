@@ -19,22 +19,16 @@
                             <div class="mb-3">
                                 <label for="formFileSm" class="form-label">Picture</label>
                                 <input class="form-control form-control-sm" id="formFileSm" type="file"
-                                    @change="selectFile">
+                                    @change="selectFile" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Title</label>
-                                <input type="text" class="form-control" v-model="product.title">
-                                <div v-if="validation.title" class="text-danger">
-
-                                </div>
+                                <input type="text" class="form-control" v-model="product.title" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Price</label>
-                                <input type="number" class="form-control" v-model="product.price">
-                                <div v-if="validation.amount" class="text-danger">
-
-                                </div>
+                                <input type="number" class="form-control" v-model="product.price" required>
                             </div>
                             <button class="btn btn-outline-primary">Submit</button>
                         </form>
@@ -78,6 +72,7 @@
                     })
                     .catch(err => {
                         console.log(err);
+                        alert('Pastikan semua terisi')
                     });
             }
         }
