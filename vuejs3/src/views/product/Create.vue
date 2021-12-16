@@ -15,7 +15,13 @@
                             {{ validation.message }}
                         </div>
 
-                        <form @submit.prevent="store()">
+                        <form enctype="multipart/form-data" @submit.prevent="store">
+                            <div class="mb-3">
+                                <label for="formFileSm" class="form-label">Picture</label>
+                                <input class="form-control form-control-sm" id="formFileSm" type="file"
+                                    @change="selectFile">
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label">Title</label>
                                 <input type="text" class="form-control" v-model="product.title">
@@ -40,50 +46,40 @@
 </template>
 
 <script>
-    import {
-        reactive,
-        ref
-    } from 'vue'
-    import {
-        useRouter
-    } from 'vue-router'
-    import axios from 'axios'
+    import axios from "axios";
+
     export default {
-        setup() {
-            //data binding
-            const product = reactive({
-                title: '',
-                price: ''
-            })
+        data() {
+            return {
+                selectedFile: "",
+                product: {},
+                validation: {}
+            };
+        },
+        methods: {
+            selectFile(e) {
+                const selectedFile = e.target.files[0]; // accessing file
+                this.selectedFile = selectedFile;
+            },
+            store() {
+                const formData = new FormData();
+                formData.append("title", this.product.title); // appending data
+                formData.append("price", this.product.price); // appending data
+                formData.append("pict", this.selectedFile); // appending file
 
-            const validation = ref([])
-
-            const router = useRouter();
-
-            function store() {
-                axios.post(
-                        'http://localhost:5000/product',
-                        product
-                    )
-                    .then(() => {
-                        router.push({
+                // sending file to the backend
+                axios
+                    .post("http://localhost:5000/product", formData)
+                    .then(res => {
+                        this.$router.push({
                             name: 'product.index'
                         })
-                    }).catch((err) => {
-                        console.log(validation.value = err.response.data)
+                        // console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err);
                     });
             }
-
-            return {
-                product,
-                validation,
-                router,
-                store
-            }
-
         }
-    }
+    };
 </script>
-<style lang="">
-
-</style>

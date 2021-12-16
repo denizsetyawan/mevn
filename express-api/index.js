@@ -34,14 +34,14 @@ app.use('/product', route); //otomatis di depan /product
 app.use("/user", userRoutes);
 
 //file upload
-const upload = multer({
-    dest: './uploads'
-})
+// const upload = multer({
+//     dest: './uploads'
+// })
 
-app.post('/upload', upload.single("foto"), (req,res) => {
-    res.json({ foto: req.file })
-    console.log(String(req.file.path))
-})
+// app.post('/upload', upload.single("file"), (req,res) => {
+//     res.json({ file: req.file })
+//     console.log(String(req.file.path))
+// })
 
 app.listen('5000', () => {
     console.log('Server running at port: 5000')
