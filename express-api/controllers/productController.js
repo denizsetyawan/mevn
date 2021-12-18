@@ -1,4 +1,5 @@
 import Product from "../models/Product.js"
+import fs from "fs";
 
 //untuk menampilkan product
 export const getProducts = async (req, res) => {
@@ -37,7 +38,7 @@ export const saveProduct = async (req, res, file) => {
         pict: req.file.path
     });
     // console.log(product.pict)
-    
+
     try {
         const savedProduct = await product.save();
         res.status(201).json({
@@ -79,22 +80,43 @@ export const updateProduct = async (req, res) => {
 //untuk hapus product
 export const deleteProduct = async (req, res) => {
     const cekId = await Product.findById(req.params.id);
-    if (!cekId) {
-        return res.status(404).json({
-            message: "Data tidak ditemukan"
-        });
-    }
     try {
-        const deletedProduct = await Product.deleteOne({
-            _id: req.params.id
-        });
+        if (!cekId) {
+            return res.status(404).json({
+                message: "Data tidak ditemukan"
+            });
+        }
+        removeImage(cekId.pict);
+        const deletedProduct = await Product.findByIdAndRemove(cekId);
         res.status(200).json({
             msg: "Product Deleted",
             data: deletedProduct
-        });
+        })
     } catch (error) {
+        // console.log(error);
         res.status(400).json({
             message: error.message
         });
     }
+
+    // try {
+    //     const deletedProduct = await Product.deleteOne({
+    //         _id: req.params.id
+    //     });
+    //     res.status(200).json({
+    //         msg: "Product Deleted",
+    //         data: deletedProduct
+    //     });
+    // } catch (error) {
+    //     res.status(400).json({
+    //         message: error.message
+    //     });
+    // }
+}
+
+const removeImage = (filePath) => {
+    // console.log('filePath', filePath)
+    // console.log(filePath);
+    filePath = (filePath)
+    fs.unlink(filePath, err => console.log(err))
 }
