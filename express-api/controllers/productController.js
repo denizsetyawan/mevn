@@ -55,21 +55,38 @@ export const saveProduct = async (req, res, file) => {
 //untuk mengupdate product
 export const updateProduct = async (req, res, file) => {
     const cekId = await Product.findById(req.params.id);
+    let cekImg = req.file;
     let img = cekId.pict;
     try {
-        removeImage(img);
-        const updatedProduct = await Product.updateOne(cekId, {
-            $set: {
-                title: req.body.title,
-                price: req.body.price,
-                pict: req.file.path
-            }
-        });
+        if(cekImg == null) {
+            const updatedProduct = await Product.updateOne(cekId, {
+                $set: {
+                    title: req.body.title,
+                    price: req.body.price,
+                    pict: cekId.pict
+                }
+            });
+            res.status(200).json({
+                msg: "Product Updated",
+                data: updatedProduct
+            });
+        } else {
+            removeImage(img);
+            const updatedProduct = await Product.updateOne(cekId, {
+                $set: {
+                    title: req.body.title,
+                    price: req.body.price,
+                    pict: req.file.path
+                }
+            });
+            res.status(200).json({
+                msg: "Product Updated",
+                data: updatedProduct
+            });
+        }
+        
         // console.log(req.file.path)
-        res.status(200).json({
-            msg: "Product Updated",
-            data: updatedProduct
-        });
+        
     } catch (error) {
         res.status(400).json({
             message: error.message
