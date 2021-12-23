@@ -14,7 +14,7 @@ const multerFilter = (req, file, cb) => {
     if (file.mimetype.split("/")[0] === "image") {
       cb(null, true);
     } else {
-      cb(new Error("Not a jpg File!!"), false);
+      cb(new Error("Not an Image File!!"), false);
     }
 };
 
