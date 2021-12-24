@@ -137,8 +137,6 @@ export const deleteProduct = async (req, res) => {
 }
 
 const removeImage = (filePath) => {
-    // console.log('filePath', filePath)
-    // console.log(filePath);
     filePath = (filePath)
     fs.unlink(filePath, err => console.log(err))
 }

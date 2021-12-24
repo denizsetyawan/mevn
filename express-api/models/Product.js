@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import slug from "mongoose-slug-generator";
+
+mongoose.plugin(slug);
 
 const Product = mongoose.Schema({
     title: {
@@ -11,6 +14,11 @@ const Product = mongoose.Schema({
     },
     pict: {
         type: String
+    },
+    slug: {
+        type: String,
+        slug: "title",
+        unique: true
     },
     published: {
         type: Boolean
