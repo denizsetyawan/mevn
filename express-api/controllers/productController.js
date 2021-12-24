@@ -4,7 +4,9 @@ import fs from "fs";
 //untuk menampilkan product
 export const getProducts = async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find({
+            published: true
+        });
         res.json({
             data: products
         });
@@ -35,7 +37,8 @@ export const saveProduct = async (req, res, file) => {
         title: req.body.title,
         price: req.body.price,
         // pict: 'http://localhost:5000/'+req.file.path
-        pict: req.file.path
+        pict: req.file.path,
+        published: req.body.published ? req.body.published : true
     });
     // console.log(product.pict)
 
@@ -63,7 +66,8 @@ export const updateProduct = async (req, res, file) => {
                 $set: {
                     title: req.body.title,
                     price: req.body.price,
-                    pict: cekId.pict
+                    pict: cekId.pict,
+                    published: req.body.published
                 }
             });
             res.status(200).json({
@@ -76,7 +80,8 @@ export const updateProduct = async (req, res, file) => {
                 $set: {
                     title: req.body.title,
                     price: req.body.price,
-                    pict: req.file.path
+                    pict: req.file.path,
+                    published: req.body.published
                 }
             });
             res.status(200).json({

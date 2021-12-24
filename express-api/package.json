@@ -21,7 +21,8 @@
         "mongoose": "^6.0.12",
         "morgan": "^1.10.0",
         "multer": "^1.4.4",
-        "path": "^0.12.7"
+        "path": "^0.12.7",
+        "slugify": "^1.6.4"
     },
     "devDependencies": {
         "nodemon": "^2.0.14"

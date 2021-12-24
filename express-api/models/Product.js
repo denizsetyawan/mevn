@@ -11,6 +11,9 @@ const Product = mongoose.Schema({
     },
     pict: {
         type: String
+    },
+    published: {
+        type: Boolean
     }
 
 }, {
